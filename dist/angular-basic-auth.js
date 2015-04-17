@@ -46,7 +46,7 @@ basicAuthModule.factory('basicAuthService', ['$log', '$http', 'base64Service', '
             $log.debug('basicAuthService.login.');
 
             // Compute authorisation header: 'Basic dGVzdA=='
-            var authorizationHeader = generateAuthorizationHeader(authData.username, authData.password);
+            var authorizationHeader = this.generateAuthorizationHeader(authData.username, authData.password);
 
             // Post the login request to the backend server in order to validate them
             $http.post(url, authData).then(function (response) {
@@ -81,7 +81,7 @@ basicAuthModule.factory('basicAuthService', ['$log', '$http', 'base64Service', '
 
                 // Delegate response to the caller (afterSuccess hook)
                 if (successCallback) {
-                    successCallback(authorizationHeader, response);
+                    successCallback(response);
                 }
             }, function (error) {
                 // Delegate response to the caller (afterFailure hook)
