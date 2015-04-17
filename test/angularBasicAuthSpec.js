@@ -25,13 +25,15 @@ describe("basicAuthModule Tests Suite", function () {
         var basicAuthService;
         var basicAuthConstants;
 
+        var $http;
         var $httpBackend;
 
         beforeEach(function () {
             module('basicAuthModule');
-            inject(function (_basicAuthService_, _basicAuthConstants_, _$httpBackend_) {
+            inject(function (_basicAuthService_, _basicAuthConstants_, _$http_, _$httpBackend_) {
                 basicAuthService = _basicAuthService_;
                 basicAuthConstants = _basicAuthConstants_;
+                $http = _$http_;
                 $httpBackend = _$httpBackend_;
             });
         });
@@ -40,64 +42,51 @@ describe("basicAuthModule Tests Suite", function () {
             expect(basicAuthService.generateAuthorizationHeader('john', 'this is my password')).toBe('Basic am9obg==:dGhpcyBpcyBteSBwYXNzd29yZA==');
         });
 
-        /*
-         it("apiVersion when url is omitted", function () {
-         var expectedResponse = {
-         "uid": "23b86ec8091013d668829fe12791fdab",
-         "device_name": "Freebox Server",
-         "api_version": "3.0",
-         "api_base_url": "/api/",
-         "device_type": "FreeboxServer1,1"
-         };
-         $httpBackend.expectGET('http://mafreebox.freebox.fr/api_version').respond(expectedResponse);
-         basicAuthService.apiVersion();
-         $httpBackend.flush();
-         });
+        xit("login on error should call failure callback if provided", function () {
+            var obj = jasmine.createSpyObj('obj', ['successCB', 'failureCB']);
 
-         it("apiVersion when url is provided", function () {
-         var expectedResponse = {
-         "uid": "23b86ec8091013d668829fe12791fdab",
-         "device_name": "Freebox Server",
-         "api_version": "3.0",
-         "api_base_url": "/api/",
-         "device_type": "FreeboxServer1,1"
-         };
-         $httpBackend.expectGET('http://88.168.32.124:8080/api_version').respond(expectedResponse);
-         basicAuthService.apiVersion('http://88.168.32.124:8080');
-         $httpBackend.flush();
-         });
+            $httpBackend.expectPOST('http://www.mysite.com/login').respond('500', '');
+            basicAuthService.login('http://www.mysite.com/login', {}, obj.successCB, obj.failureCB);
+            $httpBackend.flush();
 
-         it("apiRequestUrl when url is omitted", function () {
-         var expectedResponse = {
-         "uid": "23b86ec8091013d668829fe12791fdab",
-         "device_name": "Freebox Server",
-         "api_version": "3.0",
-         "api_base_url": "/api/",
-         "device_type": "FreeboxServer1,1"
-         };
-         $httpBackend.expectGET('http://mafreebox.freebox.fr/api_version').respond(expectedResponse);
-         var promise = basicAuthService.apiRequestUrl('/login');
-         promise.then(function(requestUrl){
-         expect(requestUrl).toBe('http://mafreebox.freebox.fr/api/v3/login');
-         });
-         $httpBackend.flush();
-         });
+            expect(obj.failureCB).toHaveBeenCalled();
+        });
 
-         it("apiRequestUrl when url is provided", function () {
-         var expectedResponse = {
-         "uid": "23b86ec8091013d668829fe12791fdab",
-         "device_name": "Freebox Server",
-         "api_version": "3.0",
-         "api_base_url": "/api/",
-         "device_type": "FreeboxServer1,1"
-         };
-         $httpBackend.expectGET('http://88.168.32.124:8080/api_version').respond(expectedResponse);
-         var promise = basicAuthService.apiRequestUrl('/login', 'http://88.168.32.124:8080');
-         promise.then(function(requestUrl){
-         expect(requestUrl).toBe('http://88.168.32.124:8080/api/v3/login');
-         });
-         $httpBackend.flush();
-         });
-         */
+        it("login on success should call success callback if provided", function () {
+            var authData = {username: 'john', password: 'this is my password'};
+            var basicHeader = 'Basic am9obg==:dGhpcyBpcyBteSBwYXNzd29yZA==';
+            var serviceResponse = {firstname: 'john', lastname: 'doe'};
+            var obj = jasmine.createSpyObj('obj', ['successCB', 'failureCB']);
+
+            $httpBackend.expectPOST('http://www.mysite.com/login').respond(serviceResponse);
+            basicAuthService.login('http://www.mysite.com/login', authData, obj.successCB, obj.failureCB);
+            $httpBackend.flush();
+
+            expect($http.defaults.headers.common.Authorization).toBe(basicHeader);
+            expect(obj.successCB).toHaveBeenCalledWith(basicHeader, jasmine.objectContaining({data: serviceResponse}));
+        });
+
+        xit("logout on error should call failure callback if provided", function () {
+            var obj = jasmine.createSpyObj('obj', ['successCB', 'failureCB']);
+
+            $httpBackend.expectPOST('http://www.mysite.com/logout').respond('500', '');
+            basicAuthService.login('http://www.mysite.com/logout', {}, obj.successCB, obj.failureCB);
+            $httpBackend.flush();
+
+            expect(obj.failureCB).toHaveBeenCalled();
+        });
+
+        it("logout on success should call success callback if provided", function () {
+            var serviceResponse = {firstname: 'n/a', lastname: 'n/a'};
+            var obj = jasmine.createSpyObj('obj', ['successCB', 'failureCB']);
+
+            $httpBackend.expectPOST('http://www.mysite.com/logout').respond(serviceResponse);
+            basicAuthService.logout('http://www.mysite.com/logout', obj.successCB, obj.failureCB);
+            $httpBackend.flush();
+
+            expect($http.defaults.headers.common.Authorization).toBe(basicAuthConstants.basicHeaderPrefix);
+            expect(obj.successCB).toHaveBeenCalledWith(jasmine.objectContaining({data: serviceResponse}));
+        });
+
     });
 });
