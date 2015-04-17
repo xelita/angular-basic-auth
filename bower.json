@@ -1,0 +1,31 @@
+{
+  "name": "angular-basic-auth",
+  "version": "1.0.0",
+  "homepage": "https://github.com/xelita/angular-basic-auth",
+  "authors": [
+    "xelita <admin@xelita.com>"
+  ],
+  "description": "Basic authentication for AngularJS applications",
+  "main": "dist/angular-basic-auth.min.js",
+  "keywords": [
+    "angular",
+    "authentication",
+    "basic"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "~1.2.3",
+    "angular-mocks": "~1.2.3"
+  },
+  "dependencies": {
+    "angular": "~1.2.3",
+    "angular-base64-codec": "~1.0.0"
+  }
+}
