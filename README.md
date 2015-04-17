@@ -1,8 +1,11 @@
+[![Bower version](https://badge.fury.io/bo/angular-basic-auth-codec.svg)](http://badge.fury.io/bo/angular-basic-auth-codec)
+[![Build Status](https://travis-ci.org/xelita/angular-basic-auth.png?branch=master)](https://travis-ci.org/xelita/angular-basic-auth)
+[![Coverage Status](https://coveralls.io/repos/xelita/angular-basic-auth/badge.svg)](https://coveralls.io/r/xelita/angular-basic-auth)
 # [angular-basic-auth]
   
  Basic authentication for AngularJS applications.
   
- IMPORTANT: This library relies on angular-base64-codec library (http://github.com/xelita/angular-basic-auth) to encode /decode data to/from base64.
+ IMPORTANT: This library relies on angular-basic-auth-codec library (http://github.com/xelita/angular-basic-auth) to encode /decode data to/from basic-auth.
   
  ## Install
   
@@ -59,7 +62,7 @@
 
 ## Developers
 
-Clone the repo, `git clone git://github.com/xelita/angular-base64.git`.
+Clone the repo, `git clone git://github.com/xelita/angular-basic-auth.git`.
 The project is tested with `jasmine` running on `karma`.
 
 >
