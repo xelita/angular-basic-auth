@@ -64,7 +64,7 @@
  e.g.
  - Display data in the view
  - Store these data in a service for a further usage
- - ...
+ - etc...
  
  A sample call could be:
  
@@ -96,7 +96,7 @@
  e.g.
  - Display data in the view
  - Store these data in a service for a further usage
- - ...
+ - etc...
 
  ```javascript
  $scope.testLogout = function() {
