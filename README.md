@@ -46,20 +46,66 @@
   
  ### Logging a user in
   
+ The logging process is made with a post request on a given url.
+ Sent data (auth data) is a json object that should contain at least a username and a password.
+ These last are controlled by the backend service. 
+ Of course, you can add more information in the authData object.
+ 
+ e.g
+ ```javascript
+ {
+    username: 'john',
+    password: 'this is my password',
+    extra: 'obama'
+ }
+ ```
+ 
+ During the call, you can provide optional callback that will allow you to interact with potential data coming from the remote server.
+ e.g.
+ - Display data in the view
+ - Store these data in a service for a further usage
+ - ...
+ 
+ A sample call could be:
+ 
  ```javascript
  $scope.testLogin = function() {
-     basicAuthService.login();
+    var authData = {username: 'john', password: 'this is my password'};
+    
+    var successCB = function(response) {
+        // Work with extra data coming from the remote server
+        $scope.generatedKey = response.data.generatedKey;
+    };
+    
+    var failureCB = function(error) {
+        $scope.status = 'ERROR';
+    };
+    
+    basicAuthService.login('http://www.mysite.com/login', authData, successCB, failureCB);
  };
  ```
+  
+ If the logging step succeeds, then further HTTP request will be made using a 'Authorization' header (computed by the given username and password).
+ e.g. request with 'Authorization' header equals to 'Basic am9obg==:dGhpcyBpcyBteSBwYXNzd29yZA=='.
   
  ### Logging a user out
   
+ The logout process is made with a post request on a given url.
+ 
+ During the call, you can provide optional callback that will allow you to interact with potential data coming from the remote server.
+ e.g.
+ - Display data in the view
+ - Store these data in a service for a further usage
+ - ...
+
  ```javascript
  $scope.testLogout = function() {
-     basicAuthService.logout();
+    basicAuthService.logout();
  };
  ```
-
+ 
+ If the logout step succeeds, then further HTTP request will be made using a cleaned 'Authorization' header ('Basic ').  
+  
 ## Developers
 
 Clone the repo, `git clone git://github.com/xelita/angular-basic-auth.git`.
