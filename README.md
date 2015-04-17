@@ -99,9 +99,18 @@
  - etc...
 
  ```javascript
- $scope.testLogout = function() {
-    basicAuthService.logout();
- };
+
+    var successCB = function(response) {
+        $scope.generatedKey = '';
+    };
+    
+    var failureCB = function(error) {
+        $scope.status = 'ERROR';
+    };
+     
+    $scope.testLogout = function() {
+        basicAuthService.logout('http://www.mysite.com/login', successCB, failureCB);
+    };
  ```
  
  If the logout step succeeds, then further HTTP request will be made using a cleaned 'Authorization' header ('Basic ').  
