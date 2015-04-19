@@ -42,10 +42,10 @@ describe("basicAuthModule Tests Suite", function () {
             expect(basicAuthService.generateAuthorizationHeader('john', 'this is my password')).toBe('Basic am9obg==:dGhpcyBpcyBteSBwYXNzd29yZA==');
         });
 
-        xit("login on error should call failure callback if provided", function () {
+        it("login on error should call failure callback if provided", function () {
             var obj = jasmine.createSpyObj('obj', ['successCB', 'failureCB']);
 
-            $httpBackend.expectPOST('http://www.mysite.com/login').respond('500', '');
+            $httpBackend.expectPOST('http://www.mysite.com/login').respond(500, '');
             basicAuthService.login('http://www.mysite.com/login', {}, obj.successCB, obj.failureCB);
             $httpBackend.flush();
 
@@ -66,10 +66,10 @@ describe("basicAuthModule Tests Suite", function () {
             expect(obj.successCB).toHaveBeenCalledWith(basicHeader, jasmine.objectContaining({data: serviceResponse}));
         });
 
-        xit("logout on error should call failure callback if provided", function () {
+        it("logout on error should call failure callback if provided", function () {
             var obj = jasmine.createSpyObj('obj', ['successCB', 'failureCB']);
 
-            $httpBackend.expectPOST('http://www.mysite.com/logout').respond('500', '');
+            $httpBackend.expectPOST('http://www.mysite.com/logout').respond(500, '');
             basicAuthService.login('http://www.mysite.com/logout', {}, obj.successCB, obj.failureCB);
             $httpBackend.flush();
 
