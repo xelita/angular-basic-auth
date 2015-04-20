@@ -1,6 +1,5 @@
 [![Bower version](https://badge.fury.io/bo/angular-basic-auth.svg)](http://badge.fury.io/bo/angular-basic-auth)
 [![Build Status](https://travis-ci.org/xelita/angular-basic-auth.png?branch=master)](https://travis-ci.org/xelita/angular-basic-auth)
-[![Coverage Status](https://coveralls.io/repos/xelita/angular-basic-auth/badge.svg)](https://coveralls.io/r/xelita/angular-basic-auth)
 # [angular-basic-auth]
   
  Basic authentication for AngularJS applications.
