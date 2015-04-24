@@ -6,15 +6,15 @@
   
  IMPORTANT: This library relies on angular-basic-auth-codec library (http://github.com/xelita/angular-basic-auth) to encode /decode data to/from basic-auth.
   
- ## Install
+## Install
   
- ### Using Bower
+### Using Bower
   
  ``` bash
  bower install angular-basic-auth
  ```
   
- ## Quick start
+## Quick start
   
  + Include the library in your application.
   
