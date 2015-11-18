@@ -39,7 +39,7 @@ describe("basicAuthModule Tests Suite", function () {
         });
 
         it("generateAuthorizationHeader", function () {
-            expect(basicAuthService.generateAuthorizationHeader('john', 'this is my password')).toBe('Basic am9obg==:dGhpcyBpcyBteSBwYXNzd29yZA==');
+            expect(basicAuthService.generateAuthorizationHeader('john', 'this is my password')).toBe('Basic am9objp0aGlzIGlzIG15IHBhc3N3b3Jk');
         });
 
         it("login on error should call failure callback if provided", function () {
@@ -54,7 +54,7 @@ describe("basicAuthModule Tests Suite", function () {
 
         it("login on success should call success callback if provided", function () {
             var authData = {username: 'john', password: 'this is my password'};
-            var basicHeader = 'Basic am9obg==:dGhpcyBpcyBteSBwYXNzd29yZA==';
+            var basicHeader = 'Basic am9objp0aGlzIGlzIG15IHBhc3N3b3Jk';
             var serviceResponse = {firstname: 'john', lastname: 'doe'};
             var obj = jasmine.createSpyObj('obj', ['successCB', 'failureCB']);
 

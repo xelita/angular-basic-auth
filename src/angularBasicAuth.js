@@ -31,7 +31,7 @@ basicAuthModule.factory('basicAuthService', ['$log', '$http', 'base64Service', '
          */
         generateAuthorizationHeader: function (username, password) {
             $log.debug('basicAuthService.authorizationHeader.');
-            var authData = base64Service.encode(username) + ':' + base64Service.encode(password);
+            var authData = base64Service.encode(username + ':' + password);
             return basicAuthConstants.basicHeaderPrefix + authData;
         },
 
